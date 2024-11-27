@@ -1,0 +1,19 @@
+{
+    "name": "dayvsonspacca/file-adapter",
+    "type": "project",
+    "authors": [
+        {
+            "name": "dayvsonspacca",
+            "email": "spacca.dayvson@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2",
+        "phpoffice/phpspreadsheet": "^3.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "AbstractFile\\": "src/"
+        }
+    }
+}
