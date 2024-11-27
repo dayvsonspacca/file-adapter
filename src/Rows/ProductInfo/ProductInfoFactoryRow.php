@@ -8,8 +8,9 @@ use AbstractFile\Rows\RowFactory;
 
 class ProductInfoFactoryRow implements RowFactory
 {
-    public function parserData(array $data): array
+    public function parserLine(string $line): array
     {
+        $data = explode(";", $line);
         return [
         'name' => (string) $data[0],
         'quantity' => (int) $data[1],

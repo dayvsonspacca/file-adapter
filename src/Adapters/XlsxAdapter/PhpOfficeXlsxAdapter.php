@@ -30,7 +30,7 @@ class PhpOfficeXlsxAdapter implements FileAdapter
                 $line[] = $cell->getValue();
             }
 
-            $lines[] = $rowFactory->parserData($line);
+            $lines[] = $rowFactory->parserLine(implode(";", $line));
         }
         return $lines;
     }

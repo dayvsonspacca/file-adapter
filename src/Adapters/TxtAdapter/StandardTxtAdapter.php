@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AbstractFile\Adapters\CsvAdapter;
+namespace AbstractFile\Adapters\TxtAdapter;
 
+use AbstractFile\Exceptions\FailedToReadLineException;
 use AbstractFile\Adapters\FileAdapter;
 use AbstractFile\Rows\RowFactory;
 
-class SemicolonCsvAdapter implements FileAdapter
+class StandardTxtAdapter implements FileAdapter
 {
     public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array
     {
@@ -16,13 +17,17 @@ class SemicolonCsvAdapter implements FileAdapter
         $lineNumber = 0;
 
         while ($line = fgets($file)) {
+            if (!$line) {
+                throw new FailedToReadLineException($lineNumber, __CLASS__);
+            }
             $lineNumber++;
 
             if ($ignoreHeader && $lineNumber === 1) {
                 continue;
             }
 
-            $lines[] = $rowFactory->parserData(explode(';', $line));
+            $line = (string) $line;
+            $lines[] = $rowFactory->parserLine($line);
         }
 
         return $lines;
