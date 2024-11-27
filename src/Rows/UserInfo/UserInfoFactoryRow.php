@@ -12,7 +12,7 @@ class UserInfoFactoryRow implements RowFactory
   {
     return [
       'name' => (string) $data[0],
-      'age' => (string) $data[1],
+      'age' => (int) $data[1],
       'job' => (string) $data[2],
     ];
   }
