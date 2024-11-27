@@ -10,28 +10,28 @@ use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class PhpOfficeXlsxAdapter implements FileAdapter
 {
-  public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array
-  {
-    $spreadsheet = IOFactory::load($filePath);
-    $lines = [];
+    public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array
+    {
+        $spreadsheet = IOFactory::load($filePath);
+        $lines = [];
 
-    $sheet = $spreadsheet->getActiveSheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-    foreach ($sheet->getRowIterator() as $lineNumber => $row) {
-      if ($ignoreHeader && $rowIndex === 1) {
-        continue;
-      }
+        foreach ($sheet->getRowIterator() as $lineNumber => $row) {
+            if ($ignoreHeader && $lineNumber === 1) {
+                continue;
+            }
 
-      $cellIterator = $row->getCellIterator();
-      $cellIterator->setIterateOnlyExistingCells(false);
+            $cellIterator = $row->getCellIterator();
+            $cellIterator->setIterateOnlyExistingCells(false);
 
-      $line = [];
-      foreach ($cellIterator as $cell) {
-        $line[] = $cell->getValue();
-      }
+            $line = [];
+            foreach ($cellIterator as $cell) {
+                $line[] = $cell->getValue();
+            }
 
-      $lines[] = $rowFactory->parserData($line);
+            $lines[] = $rowFactory->parserData($line);
+        }
+        return $lines;
     }
-    return $lines;
-  }
 }

@@ -9,22 +9,22 @@ use AbstractFile\Rows\RowFactory;
 
 class CommaTxtAdapter implements FileAdapter
 {
-  public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array
-  {
-    $file = fopen($filePath, 'r');
-    $lines = [];
-    $lineNumber = 0;
+    public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array
+    {
+        $file = fopen($filePath, 'r');
+        $lines = [];
+        $lineNumber = 0;
 
-    while ($line = fgets($file)) {
-      $lineNumber++;
+        while ($line = fgets($file)) {
+            $lineNumber++;
 
-      if ($ignoreHeader && $lineNumber === 1) {
-        continue;
-      }
-      
-      $lines[] = $rowFactory->parserData(explode(',', $line));
+            if ($ignoreHeader && $lineNumber === 1) {
+                continue;
+            }
+
+            $lines[] = $rowFactory->parserData(explode(',', $line));
+        }
+
+        return $lines;
     }
-
-    return $lines;
-  }
 }

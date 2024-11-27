@@ -8,5 +8,5 @@ use AbstractFile\Rows\RowFactory;
 
 interface FileAdapter
 {
-  public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array;
+    public function handle(string $filePath, RowFactory $rowFactory, bool $ignoreHeader = false): array;
 }

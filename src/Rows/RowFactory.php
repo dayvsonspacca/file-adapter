@@ -6,5 +6,5 @@ namespace AbstractFile\Rows;
 
 interface RowFactory
 {
-  public function parserData(array $data): array;
+    public function parserData(array $data): array;
 }
