@@ -10,6 +10,7 @@ class ProductInfoFactoryRow implements RowFactory
 {
     public function parserLine(string $line): array
     {
+        $line = $this->sanitize($line);
         $data = explode(";", $line);
         return [
         'name' => (string) $data[0],
@@ -17,5 +18,10 @@ class ProductInfoFactoryRow implements RowFactory
         'price' => (float) $data[2],
         'categorie' => (string) $data[3],
         ];
+    }
+
+    public function sanitize(string $line): string
+    {
+        return trim(str_replace(['\n'], $line, $line));
     }
 }
